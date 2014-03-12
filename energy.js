@@ -3,7 +3,6 @@ var express = require('express');
 var accountSid = 'AC705e42b0f48c9dc4aa055dd830a816ad';
 var authToken = "dfec68a266acd8126f76127c86e30364";
 var twilio = require('twilio');
-var client = new twilio.RestClient(accountSid, authToken);
 var app = express();
 
 app.get('/', function(req, res){
@@ -17,8 +16,8 @@ app.configure(function () {
 //Create a route to resp
 app.post('/respondToSms', function(req,res) {
 	//Validate that this request came from TW
-	if(client.validateExpressRequest(req, authToken)) {
-		var twiml = new client.TwimlResponse();
+	if(twilio.validateExpressRequest(req, authToken)) {
+		var twiml = new twilio.TwimlResponse();
 
 		twiml.Sms('Hi, thanks for sending!');
 
