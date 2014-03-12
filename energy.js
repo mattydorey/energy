@@ -23,6 +23,8 @@ app.post('/respondToSms', function(req,res) {
 
 		res.type('text/xml');
 		res.send(twiml.toString());
+
+		console.log(twiml);
 	}
 	else {
 		res.send('you are not twilio. f off');
