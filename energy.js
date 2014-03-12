@@ -31,7 +31,7 @@ app.post('/respondToSms', function(req,res) {
 
 var count = 30;
 
-var counter = setInterval(timer, 1000);
+var counter = setInterval(timer, 600000);
 
 function timer() {
 	count = count -1;
