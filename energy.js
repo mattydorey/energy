@@ -2,7 +2,7 @@ var http = require('http');
 var express = require('express');
 var accountSid = 'AC705e42b0f48c9dc4aa055dd830a816ad';
 var authToken = "dfec68a266acd8126f76127c86e30364";
-var client = require('node-twilio')(accountSid, authToken);
+var client = require('twilio')(accountSid, authToken);
 var app = express();
 
 app.get('/', function(req, res){
