@@ -9,7 +9,9 @@ app.get('/', function(req, res){
 	res.send('Hello World...');
 });
 
-app.use(express.urlencoded());
+app.configure(function () {
+    app.use(express.urlencoded());
+});
 
 //Create a route to resp
 app.post('/respondToSms', function(req,res) {
