@@ -12,7 +12,7 @@ app.get('/', function(req, res){
 app.use(express.urlencoded());
 
 //Create a route to resp
-app.post('respondToSms', function(req,res) {
+app.post('/respondToSms', function(req,res) {
 	//Validate that this request came from TW
 	if(twilio.validateExpressRequest(req, authToken)) {
 		var twiml = new twilio.TwimlResponse();
