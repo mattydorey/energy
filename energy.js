@@ -15,17 +15,23 @@ app.configure(function () {
 
 //Create a route to resp
 app.post('/respondToSms', function(req,res) {
-	var twiml = new client.TwimlResponse();
+	//Validate that this request came from TW
+	if(client.validateExpressRequest(req, authToken)) {
+		var twiml = new client.TwimlResponse();
 
-	twiml.Sms('Hi, thanks for sending!');
+		twiml.Sms('Hi, thanks for sending!');
 
-	res.type('text/xml');
-	res.send(twiml.toString());
+		res.type('text/xml');
+		res.send(twiml.toString());
+	}
+	else {
+		res.send('you are not twilio. f off');
+	}
 });
 
 var count = 30;
 
-var counter = setInterval(timer, 60000);
+var counter = setInterval(timer, 1000);
 
 function timer() {
 	count = count -1;
@@ -41,7 +47,6 @@ function timer() {
 		});
 		count = 30;
 	}
-
 
 	//show seconds here
 }
