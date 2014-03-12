@@ -15,18 +15,12 @@ app.configure(function () {
 
 //Create a route to resp
 app.post('/respondToSms', function(req,res) {
-	//Validate that this request came from TW
-	if(client.validateExpressRequest(req, authToken)) {
-		var twiml = new client.TwimlResponse();
+	var twiml = new client.TwimlResponse();
 
-		twiml.Sms('Hi, thanks for sending!');
+	twiml.Sms('Hi, thanks for sending!');
 
-		res.type('text/xml');
-		res.send(twiml.toString());
-	}
-	else {
-		res.send('you are not twilio. f off');
-	}
+	res.type('text/xml');
+	res.send(twiml.toString());
 });
 
 var count = 30;
