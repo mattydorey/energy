@@ -1,4 +1,0 @@
-energy
-======
-
-Futuristic Energy Tracker

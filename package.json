@@ -1,0 +1,24 @@
+{
+  "name": "ENERGY",
+  "version": "0.0.0",
+  "description": "The greatest readme ever",
+  "main": "energy.js",
+  "dependencies": {
+    "express": "~3.4.8",
+    "logfmt": "^0.21.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mattydorey/energy.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mattydorey/energy/issues"
+  },
+  "homepage": "https://github.com/mattydorey/energy"
+}
