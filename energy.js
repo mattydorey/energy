@@ -6,18 +6,18 @@ var client = require('twilio')(accountSid, authToken);
 var app = express();
 
 app.get('/', function(req, res){
-	res.send('Hello World');
+	res.send('Hello World...');
 });
 
 app.use(express.urlencoded());
 
 //Create a route to resp
-app.post('resondToVoiceCall', function(req,res) {
+app.post('respondToSms', function(req,res) {
 	//Validate that this request came from TW
 	if(twilio.validateExpressRequest(req, authToken)) {
 		var twiml = new twilio.TwimlResponse();
 
-		twiml.say('Hi, thanks for sending!');
+		twiml.Sms('Hi, thanks for sending!');
 
 		res.type('text/xml');
 		res.send(twiml.toString());
