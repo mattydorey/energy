@@ -3,13 +3,12 @@ var express = require('express');
 var accountSid = 'AC705e42b0f48c9dc4aa055dd830a816ad';
 var authToken = "dfec68a266acd8126f76127c86e30364";
 var client = require('/usr/local/lib/node_modules/twilio')(accountSid, authToken);
-
-http.createServer(function (req, res) {
-	res.writeHead(200, {'Content-Type': 'text/plain'});
-	res.end('Hello World\n');
-}).listen(1337, '127.0.0.1');
-
 var app = express();
+
+app.get('/', function(req, res){
+	res.send('Hello World');
+});
+
 app.use(express.urlencoded());
 
 //Create a route to resp
@@ -51,4 +50,7 @@ function timer() {
 	//show seconds here
 }
 
-console.log('Server running at http...');
+var port = Number(process.env.PORT || 5000);
+app.listen(port, function() {
+	console.log("Listening on " + port);
+});
