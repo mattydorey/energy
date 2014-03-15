@@ -3,6 +3,7 @@ var express = require('express');
 var accountSid = 'AC705e42b0f48c9dc4aa055dd830a816ad';
 var authToken = "dfec68a266acd8126f76127c86e30364";
 var twilio = require('twilio');
+var client = require('twilio')(accountSid, authToken);
 var app = express();
 
 app.get('/', function(req, res){
@@ -39,7 +40,7 @@ function timer() {
 	count = count -1;
 	console.log(count);
 	if (count) {
-		twilio.sms.messages.create({
+		client.sms.messages.create({
     		body: "Rate your energy between 1 and 5:",
    			 to: "+14153172907",
    			 from: "+14155287545"
