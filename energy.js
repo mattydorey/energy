@@ -18,11 +18,11 @@ app.configure(function () {
 //Create a route to resp
 app.post('/respondToSms', function(req,res) {
 	//Validate that this request came from TW
-	console.log('before');
+	console.log(util.inspect(req));
 	if(twilio.validateExpressRequest(req, authToken)) {
 		//var twiml = new twilio.TwimlResponse();
-
-		console.log('something');
+		console.log(util.inspect(req));
+		console.log('go');
 		//twiml.Sms('Hi, thanks for sending!');
 
 		//res.type('text/xml');
@@ -30,6 +30,7 @@ app.post('/respondToSms', function(req,res) {
 		//console.log(util.inspect(twiml.body));
 	}
 	else {
+		console.log("fail");
 		res.send('you are not twilio. f off');
 	}
 });
