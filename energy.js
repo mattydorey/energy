@@ -39,7 +39,7 @@ function timer() {
 	count = count -1;
 	console.log(count);
 	if (count) {
-		client.sms.messages.create({
+		twilio.sms.messages.create({
     		body: "Rate your energy between 1 and 5:",
    			 to: "+14153172907",
    			 from: "+14155287545"
