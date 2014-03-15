@@ -32,9 +32,9 @@ app.post('/respondToSms', function(req,res) {
 	}
 });
 
-var count = 30;
+var count = 60;
 
-var counter = setInterval(timer, 1000);
+var counter = setInterval(timer, 10000);
 
 function timer() {
 	count = count -1;
@@ -47,7 +47,7 @@ function timer() {
 		}, function(err, message) {
     		process.stdout.write(message.sid);
 		});
-		count = 30;
+		count = 60;
 	}
 }
 
