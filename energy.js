@@ -18,7 +18,7 @@ app.configure(function () {
 //Create a route to resp
 app.post('/respondToSms', function(req,res) {
 	//Validate that this request came from TW
-	console.log(util.inspect(req));
+	//console.log(util.inspect(req));
 	if(twilio.validateExpressRequest(req, authToken)) {
 		//var twiml = new twilio.TwimlResponse();
 		console.log(util.inspect(req));
