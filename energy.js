@@ -24,7 +24,7 @@ app.post('/respondToSms', function(req,res) {
 		twiml.Sms('Hi, thanks for sending!');
 
 		res.type('text/xml');
-		res.send(twiml.toString());
+		//res.send(twiml.toString());
 		console.log(util.inspect(twiml.body));
 	}
 	else {
@@ -38,7 +38,7 @@ var counter = setInterval(timer, 60000);
 
 function timer() {
 	count = count -1;
-	console.log(count);
+	console.log(count + " minutes until fire.");
 	if (count == 0) {
 		client.sms.messages.create({
     		body: "Rate your energy between 1 and 5:",
