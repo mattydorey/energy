@@ -38,8 +38,7 @@ var counter = setInterval(timer, 1000);
 function timer() {
 	count = count -1;
 	console.log(count);
-	if (count == 0) {
-		console.log('count is zerooo');
+	if (count) {
 		client.sms.messages.create({
     		body: "Rate your energy between 1 and 5:",
    			 to: "+14153172907",
