@@ -21,9 +21,10 @@ app.post('/respondToSms', function(req,res) {
 	if(twilio.validateExpressRequest(req, authToken)) {
 		var twiml = new twilio.TwimlResponse();
 
-		twiml.Sms('Hi, thanks for sending!');
+		console.log('something');
+		//twiml.Sms('Hi, thanks for sending!');
 
-		res.type('text/xml');
+		//res.type('text/xml');
 		//res.send(twiml.toString());
 		console.log(util.inspect(twiml.body));
 	}
