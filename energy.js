@@ -19,7 +19,7 @@ app.configure(function () {
 app.post('/respondToSms', function(req,res) {
 	//Validate that this request came from TW
 	console.log('before');
-	if(twilio.validateExpressRequest(req, authToken)) {
+	/*if(twilio.validateExpressRequest(req, authToken)) {
 		var twiml = new twilio.TwimlResponse();
 
 		console.log('something');
@@ -31,7 +31,7 @@ app.post('/respondToSms', function(req,res) {
 	}
 	else {
 		res.send('you are not twilio. f off');
-	}
+	}*/
 });
 
 var count = 60;
