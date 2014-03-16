@@ -9,7 +9,7 @@ var qs = require('querystring');
 var redis = require('redis');
 var url = require('url');
 
-var redisURL = url.parse(process.env.REDISCLOUD_URL || 6379);
+var redisURL = url.parse(process.env.REDISCLOUD_URL);
 var dbConnection = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
 dbConnection.auth(redisURL.auth.split(":")[1]);
 
