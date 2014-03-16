@@ -55,18 +55,19 @@ function timer() {
 	console.log("T- " + minutes + " minutes until fire.");
 	if (minutes == 0) {
 		
-		var users = new Array();
-		users[0] = "+14153172907";
-		users[1] = "+3107709638";
-
-		for(var i=0; i<users.length; i++) {
+		var users = ["+14153172907", "+3107709638"];
+		var message = "Rate your energy between 1 and 5:";
+		Array.users.each(function(users){
 			client.sms.messages.create({
-	    		body: "Rate your energy between 1 and 5:",
-	   			 to: users[i],
-	   			 from: "+14155287545"
+	    		body: message,
+	   			to: users,
+	   			from: "+14155287545"
 			}, function(err, message) {
 	    		process.stdout.write(message.sid);
 			});
+		});
+
+
 		}
 		minutes = 60;
 	}
