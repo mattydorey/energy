@@ -61,8 +61,8 @@ app.post('/respondToSms', function(req, res) {
     var smsResponse = res.send('<Response><Message>Tks</Message></Response>');
 });
 
-var minutes = 10;
-var counter = setInterval(timer, 1000);
+var minutes = 60;
+var counter = setInterval(timer, 60000);
 
 function timer() {
 	minutes = minutes -1;
@@ -84,7 +84,7 @@ function timer() {
 	    		console.log(err);
 			});
 		});
-		minutes = 10;
+		minutes = 60;
 	}
 }
 
