@@ -3,7 +3,6 @@ var express = require('express');
 var accountSid = 'AC705e42b0f48c9dc4aa055dd830a816ad';
 var authToken = "dfec68a266acd8126f76127c86e30364";
 var util = require('util');
-process.env.TWILIO_ACCOUNT_SID = accountSid;
 var twilio = require('twilio');
 //var client = require('twilio')(accountSid, authToken);
 var app = express();
@@ -20,6 +19,7 @@ app.configure(function () {
 var validationForHost = twilio.webhook(authToken, {
     host:'https://damp-beach-4762.herokuapp.com/respondToSms',
     protocol:'https'
+    validate: false;
 });
 
 // Where a Twilio number's config is set up to POST to https://silent-iguana-129.herokuapp.com/foobar/voice
