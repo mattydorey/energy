@@ -20,10 +20,12 @@ app.configure(function () {
 app.post('/respondToSms', function(req, res) {
     var options = { url: 'http://damp-beach-4762.herokuapp.com/respondToSms' };
     if (twilio.validateExpressRequest(req, authToken, options)) {
+        res.type('text/xml');
+        response.header('Content-Type', 'text/xml');
         var resp = new twilio.TwimlResponse();
         resp.say('express sez - hello twilio!');
 
-        res.type('text/xml');
+        
         res.send(resp.toString());
     }
     else {
