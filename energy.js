@@ -56,12 +56,12 @@ function timer() {
 	if (minutes == 0) {
 		
 		var users = ["+14153172907", "+3107709638"];
-		var message = "Rate your energy between 1 and 5:";
+		var question = "Rate your energy between 1 and 5:";
 		console.log(users[0]);
 		
 		users.forEach(function(user){
 			client.sms.messages.create({
-	    		body: message,
+	    		body: question,
 	   			to: user,
 	   			from: "+14155287545"
 			}, function(err, message) {
