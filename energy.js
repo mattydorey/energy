@@ -46,7 +46,14 @@ app.post('/respondToSms', function(req, res) {
     	phoneNumber = jsonDataObject.From;
     	messageResponse = jsonDataObject.Body;
     	
-    	dbConnection.set("user", phoneNumber, redis.print); 
+    	dbConnection.set("string key", "string val", redis.print); 
+    	dbConnection.hset("hash key", "hashtest 1", phoneNumber, redis.print);
+    	dbConnection.hkeys("hash key", function (err, replies) {
+        	console.log(replies.length + " replies:");
+        	replies.forEach(function (reply, i) {
+            	console.log("    " + i + ": " + reply);
+        	});
+        });
     		/*"datetime", strDateTime, 
     		"message", messageResponse, 
     		);*/
