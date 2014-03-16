@@ -15,28 +15,19 @@ app.configure(function () {
     app.use(express.urlencoded());
 });
 
-//Create a route to resp
-app.post('/respondToSms', function(req,res) {
-	//Validate that this request came from TW
-	if(twilio.validateExpressRequest(req, authToken)) {
-		var resp = new twilio.TwimlResponse();
+//Twilio request authentication with custom URL
+app.post('/twiml', function(req, res) {
+    var options = { url: 'http://damp-beach-4762.herokuapp.com/respondToSms' };
+    if (twilio.validateExpressRequest(req, authToken, options)) {
+        var resp = new twilio.TwimlResponse();
         resp.say('express sez - hello twilio!');
 
         res.type('text/xml');
         res.send(resp.toString());
-
-		//var twiml = new twilio.TwimlResponse();
-		//console.log(util.inspect(req));
-		//console.log('go');
-		//twiml.Sms('Hi, thanks for sending!');
-		//res.type('text/xml');
-		//res.send(twiml.toString());
-		//console.log(util.inspect(twiml.body));
-	}
-	else {
-		console.log("fail");
-		res.send('you are not twilio. f off');
-	}
+    }
+    else {
+        res.send('you are not twilio.  Buzz off.');
+    }
 });
 
 var count = 60;
