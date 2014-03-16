@@ -46,11 +46,10 @@ app.post('/respondToSms', function(req, res) {
     	phoneNumber = jsonDataObject.From;
     	messageResponse = jsonDataObject.Body;
     	
-    	dbConnection.set(
-    		"user", phoneNumber, 
-    		"datetime", strDateTime, 
+    	dbConnection.set("user", phoneNumber, redis.print); 
+    		/*"datetime", strDateTime, 
     		"message", messageResponse, 
-    		redis.print);
+    		);*/
 		
 		console.log(phoneNumber);
 		console.log(strDateTime);
