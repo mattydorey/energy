@@ -37,6 +37,7 @@ app.post('/respondToSms', function(req, res) {
     	messageResponse = jsonDataObject.Body;
     	
     	dbConnection.set(strDateTime, messageResponse, redis.print);
+		
 		console.log(phoneNumber);
 		console.log(strDateTime);
 		console.log(messageResponse);
@@ -57,8 +58,7 @@ function timer() {
 		
 		var users = ["+14153172907", "+14158893323", "+13107709638"];
 		var question = "Rate your energy between 1 and 5:";
-		
-		
+	
 		users.forEach(function(user){
 			console.log(user);
 			client.sms.messages.create({
@@ -70,10 +70,11 @@ function timer() {
 	    		console.log(err);
 			});
 		});
+		minutes = 60;
 	}
 }
 
-minutes = 10;
+
 
 var port = Number(process.env.PORT || 5001);
 app.listen(port, function() {
