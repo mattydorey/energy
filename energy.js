@@ -43,6 +43,7 @@ function timer() {
    			 to: "+14153172907",
    			 from: "+14155287545"
 		}, function(err, message) {
+    		console.log('faill!');
     		process.stdout.write(message.sid);
 		});
 		count = 60;
