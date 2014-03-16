@@ -16,7 +16,7 @@ dbConnection.auth(redisURL.auth.split(":")[1]);
 app.get('/', function(req, res){
 	res.send('..Hellsso World...');
 	
-	dbConnection.hgetall("user", function(err, replies) {
+	dbConnection.hgetall("hash", function(err, replies) {
 		res.send(replies.length + " replies:");
 		replies.forEach(function (reply, i) {
 			res.send("   " + i + ": " + reply);
