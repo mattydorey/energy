@@ -46,6 +46,7 @@ app.post('/respondToSms', function(req, res) {
     	phoneNumber = jsonDataObject.From;
     	messageResponse = jsonDataObject.Body;
     	
+    	/*
     	dbConnection.set("string key", "string val", redis.print); 
     	dbConnection.hset("hash key", "hashtest 1", phoneNumber, redis.print);
     	dbConnection.hkeys("hash key", function (err, replies) {
