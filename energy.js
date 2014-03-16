@@ -4,9 +4,14 @@ var accountSid = 'AC705e42b0f48c9dc4aa055dd830a816ad';
 var authToken = "dfec68a266acd8126f76127c86e30364";
 var util = require('util');
 var client = require('twilio')(accountSid, authToken);
-var redis = require('redis-url').connect(process.env.REDISCLOUD_URL);
 var app = express();
 var qs = require('querystring');
+var redis = require('redis');
+var url = require('url');
+
+var redisURL = url.parse(process.env.REDISCLOUD_URL);
+var dbConnection = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
+dbConnection.auth(redisURL.auth.split(":")[1]);
 
 app.get('/', function(req, res){
 	res.send('..Hellsso World...');
@@ -29,7 +34,7 @@ app.post('/respondToSms', function(req, res) {
 		var jsonString = JSON.stringify(data);
     	var jsonDataObject = JSON.parse(jsonString);
     	messageResponse = jsonDataObject.Body;
-    	redis.set(strDateTime, messageResponse, redis.print);
+    	dbConnection.set(strDateTime, messageResponse, redis.print);
 		console.log(strDateTime);
 		console.log(messageResponse);
 	});
