@@ -18,7 +18,7 @@ app.configure(function () {
 //Twilio request authentication with custom URL
 app.post('/respondToSms', function(req, res) {
     var options = { url: 'http://damp-beach-4762.herokuapp.com/respondToSms' };
-    if (twilio.validateExpressRequest(req, 'dfec68a266acd8126f76127c86e30364', options)) {
+    if (twilio.validateExpressRequest(req, 'dssds', options)) {
         var resp = new twilio.TwimlResponse();
         resp.say('express sez - hello twilio!');
 
