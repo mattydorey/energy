@@ -18,14 +18,15 @@ app.use(express.urlencoded());
 app.get('/', function(req, res){
 	res.send('..Hellsso World...');
 	
-	dbConnection.hkeys("user", function(err, replies) {
-		res.send('get complete');
-		//res.send(replies.length + " replies:");
+	dbConnection.hgetall("hash", function(err, replies) {
+		res.send(replies.length + " replies:");
 		replies.forEach(function (reply, i) {
 			res.send("   " + i + ": " + reply);
 		});
 	});
 });
+
+
 
 app.post('/respondToSms', function(req, res) {       
     var body = '';
@@ -43,32 +44,23 @@ app.post('/respondToSms', function(req, res) {
     	
     	phoneNumber = jsonDataObject.From;
     	messageResponse = jsonDataObject.Body;
+    	
+    	dbConnection.HMSET("hash", {
+    		"user": phoneNumber, 
+    		"datetime": strDateTime, 
+    		"message": messageResponse});
+		
 		console.log(phoneNumber);
 		console.log(strDateTime);
 		console.log(messageResponse);
-    	
-    	//dbConnection.set("string key", "string val", redis.print); 
-    	//dbConnection.hset("hash key", "hashtest 1", phoneNumber, redis.print);
-    	
-    	/*dbConnection.hkeys("hash key", function (err, replies) {
-        	console.log(replies.length + " replies:");
-        	replies.forEach(function (reply, i) {
-            	console.log("    " + i + ": " + reply);
-        	});
-        });
-    		/*"datetime", strDateTime, 
-    		"message", messageResponse, 
-    		);*/
-		
-
 	});
 
     res.type('text/xml');
     var smsResponse = res.send('<Response><Message>Tks</Message></Response>');
 });
 
-var minutes = 60;
-var counter = setInterval(timer, 60000);
+var minutes = 10;
+var counter = setInterval(timer, 1000);
 
 function timer() {
 	minutes = minutes -1;
@@ -90,7 +82,7 @@ function timer() {
 	    		console.log(err);
 			});
 		});
-		minutes = 60;
+		minutes = 10;
 	}
 }
 
