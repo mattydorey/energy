@@ -13,20 +13,11 @@ var redisURL = url.parse(process.env.REDISCLOUD_URL);
 var dbConnection = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
 dbConnection.auth(redisURL.auth.split(":")[1]);
 
-app.use(express.urlencoded());
-
 app.get('/', function(req, res){
 	res.send('..Hellsso World...');
-	
-	dbConnection.hgetall("hash", function(err, replies) {
-		res.send(replies.length + " replies:");
-		replies.forEach(function (reply, i) {
-			res.send("   " + i + ": " + reply);
-		});
-	});
 });
 
-
+app.use(express.urlencoded());
 
 app.post('/respondToSms', function(req, res) {       
     var body = '';
@@ -45,11 +36,7 @@ app.post('/respondToSms', function(req, res) {
     	phoneNumber = jsonDataObject.From;
     	messageResponse = jsonDataObject.Body;
     	
-    	dbConnection.HMSET("hash", {
-    		"user": phoneNumber, 
-    		"datetime": strDateTime, 
-    		"message": messageResponse});
-		
+    	dbConnection.set(strDateTime, messageResponse, redis.print);
 		console.log(phoneNumber);
 		console.log(strDateTime);
 		console.log(messageResponse);
@@ -59,8 +46,8 @@ app.post('/respondToSms', function(req, res) {
     var smsResponse = res.send('<Response><Message>Tks</Message></Response>');
 });
 
-var minutes = 10;
-var counter = setInterval(timer, 1000);
+var minutes = 60;
+var counter = setInterval(timer, 60000);
 
 function timer() {
 	minutes = minutes -1;
@@ -68,8 +55,9 @@ function timer() {
 	
 	if (minutes == 0) {
 		
-		var users = ["+14153172907", "+14158893323"]; //"+13107709638"
+		var users = ["+14153172907", "+14158893323", "+13107709638"];
 		var question = "Rate your energy between 1 and 5:";
+		
 		
 		users.forEach(function(user){
 			console.log(user);
@@ -82,9 +70,10 @@ function timer() {
 	    		console.log(err);
 			});
 		});
-		minutes = 10;
 	}
 }
+
+minutes = 10;
 
 var port = Number(process.env.PORT || 5001);
 app.listen(port, function() {
