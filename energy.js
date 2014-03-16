@@ -18,7 +18,7 @@ app.use(express.urlencoded());
 app.get('/', function(req, res){
 	res.send('..Hellsso World...');
 	
-	dbConnection.hgetall("myhash", function(err, replies) {
+	dbConnection.hgetall(myhash, function(err, replies) {
 		res.send('get complete');
 		//res.send(replies.length + " replies:");
 		replies.forEach(function (reply, i) {
@@ -44,7 +44,7 @@ app.post('/respondToSms', function(req, res) {
     	phoneNumber = jsonDataObject.From;
     	messageResponse = jsonDataObject.Body;
     	
-    	dbConnection.HSET("myhash", {
+    	dbConnection.HSET(myhash, {
     		"user": phoneNumber, 
     		"datetime": strDateTime, 
     		"message": messageResponse});
