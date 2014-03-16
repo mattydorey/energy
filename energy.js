@@ -46,7 +46,8 @@ app.post('/respondToSms', function(req, res) {
     	dbConnection.HMSET(key2, {
     		"user": phoneNumber, 
     		"datetime": strDateTime, 
-    		"message": messageResponse);
+    		"message": messageResponse});
+		
 		console.log(phoneNumber);
 		console.log(strDateTime);
 		console.log(messageResponse);
