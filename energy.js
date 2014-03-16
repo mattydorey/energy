@@ -20,13 +20,13 @@ app.post('/respondToSms', function(req,res) {
 	//Validate that this request came from TW
 	//console.log(util.inspect(req));
 	if(twilio.validateExpressRequest(req, authToken)) {
-		//var twiml = new twilio.TwimlResponse();
+		var twiml = new twilio.TwimlResponse();
 		console.log(util.inspect(req));
 		console.log('go');
-		//twiml.Sms('Hi, thanks for sending!');
+		twiml.Sms('Hi, thanks for sending!');
 
-		//res.type('text/xml');
-		//res.send(twiml.toString());
+		res.type('text/xml');
+		res.send(twiml.toString());
 		//console.log(util.inspect(twiml.body));
 	}
 	else {
@@ -41,7 +41,7 @@ var counter = setInterval(timer, 60000);
 
 function timer() {
 	count = count -1;
-	console.log(count + " minutes until fire.");
+	console.log("T- " + count + " minutes until fire.");
 	if (count == 0) {
 		client.sms.messages.create({
     		body: "Rate your energy between 1 and 5:",
@@ -54,7 +54,7 @@ function timer() {
 	}
 }
 
-var port = Number(process.env.PORT || 5000);
+var port = Number(process.env.PORT || 5001);
 app.listen(port, function() {
 	console.log("Listening on " + port);
 });
