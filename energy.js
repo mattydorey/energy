@@ -43,7 +43,10 @@ app.post('/respondToSms', function(req, res) {
     	phoneNumber = jsonDataObject.From;
     	messageResponse = jsonDataObject.Body;
     	
-    	dbConnection.hmset("user", phoneNumber, "datetime", strDateTime, "message", messageResponse, redis.print);
+    	dbConnection.HMSET(key2, {
+    		"user": phoneNumber, 
+    		"datetime": strDateTime, 
+    		"message": messageResponse);
 		console.log(phoneNumber);
 		console.log(strDateTime);
 		console.log(messageResponse);
@@ -76,11 +79,9 @@ function timer() {
 	    		console.log(err);
 			});
 		});
+		minutes = 10;
 	}
-	
 }
-
-minutes = 10;
 
 var port = Number(process.env.PORT || 5001);
 app.listen(port, function() {
