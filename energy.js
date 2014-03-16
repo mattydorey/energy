@@ -28,6 +28,7 @@ app.post('/respondToSms', function(req, res) {
     }
     else {
         console.log("faill!");
+        res.writeHead(403, { 'Content-Type':'text/plain' });
         res.send('you are not twilio.  Buzz off.');
     }
 });
