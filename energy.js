@@ -14,8 +14,8 @@ app.get('/', function(req, res){
 //app.use(express.urlencoded());
 
 app.post('/respondToSms', function(req, res) {
-    response.type('text/xml');
-    response.send('<Response><Say>Hello there! Thanks for calling.</Say></Response>');
+    res.type('text/xml');
+    res.send('<Response><Say>Hello there! Thanks for calling.</Say></Response>');
 });
 
 //var count = 60;
