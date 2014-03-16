@@ -4,8 +4,7 @@ var accountSid = 'AC705e42b0f48c9dc4aa055dd830a816ad';
 var authToken = "dfec68a266acd8126f76127c86e30364";
 var util = require('util');
 var client = require('twilio')(accountSid, authToken);
-var redis = require('redis');
-var dbConnection = redis.createClient();
+var redis = require('redis-url').connect(process.env.REDISTOGO_URL);
 var app = express();
 var qs = require('querystring');
 
@@ -30,17 +29,13 @@ app.post('/respondToSms', function(req, res) {
 		var jsonString = JSON.stringify(data);
     	var jsonDataObject = JSON.parse(jsonString);
     	messageResponse = jsonDataObject.Body;
-    	dbConnection.set(strDateTime, messageResponse, redis.print);
+    	redis.set(strDateTime, messageResponse, redis.print);
 		console.log(strDateTime);
 		console.log(messageResponse);
 	});
 
     res.type('text/xml');
     var smsResponse = res.send('<Response><Message>Tks</Message></Response>');
-});
-
-dbConnection.on("error", function (err) {
-	console.log("Error " + err);
 });
 
 var minutes = 10;
