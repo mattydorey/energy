@@ -13,6 +13,8 @@ var redisURL = url.parse(process.env.REDISCLOUD_URL || 6379);
 var dbConnection = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
 dbConnection.auth(redisURL.auth.split(":")[1]);
 
+var myhash = "blah";
+
 app.use(express.urlencoded());
 
 app.get('/', function(req, res){
