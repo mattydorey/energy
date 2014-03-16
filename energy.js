@@ -39,7 +39,7 @@ function timer() {
 
 var port = Number(process.env.PORT || 5001);
 
-app.listen(port, function() {
+app.listen(port, function(req, res) {
 	
 	if (req.method == 'POST') {
         var body = '';
