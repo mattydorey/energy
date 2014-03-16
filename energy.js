@@ -67,9 +67,9 @@ function timer() {
 	    		process.stdout.write(message.sid);
 			});*/
 	};
-	minutes = 60;
 };
 
+minutes = 60;
 
 var port = Number(process.env.PORT || 5001);
 app.listen(port, function() {
