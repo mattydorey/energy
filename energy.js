@@ -54,13 +54,16 @@ function timer() {
 	minutes = minutes -1;
 	console.log("T- " + minutes + " minutes until fire.");
 	if (minutes == 0) {
-		client.sms.messages.create({
-    		body: "Rate your energy between 1 and 5:",
-   			 to: "+14153172907",
-   			 from: "+14155287545"
-		}, function(err, message) {
-    		process.stdout.write(message.sid);
-		});
+		users = {"+14153172907", "+3107709638"};
+		for(var i=0; i<users.length; i++) {
+			client.sms.messages.create({
+	    		body: "Rate your energy between 1 and 5:",
+	   			 to: users[i],
+	   			 from: "+14155287545"
+			}, function(err, message) {
+	    		process.stdout.write(message.sid);
+			});
+		}
 		minutes = 60;
 	}
 }
