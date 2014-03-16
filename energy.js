@@ -11,26 +11,11 @@ app.get('/', function(req, res){
 	res.send('..Hellsso World...');
 });
 
-
-app.use(express.urlencoded());
-
+//app.use(express.urlencoded());
 
 app.post('/respondToSms', function(req, res) {
-    var options = { url: 'http://damp-beach-4762.herokuapp.com/respondToSms' };
-    
-
-
-    if (twilio.validateExpressRequest(req, authToken, options)) {
-        var resp = new twilio.TwimlResponse();
-        resp.say('express sez - hello twilio!');
-
-        res.type('text/xml');
-        res.send(resp.toString());
-    }
-    else {
-        console.log("faill!");
-        res.send('you are not twilio.  Buzz off.');
-    }
+    response.type('text/xml');
+    response.send('<Response><Say>Hello there! Thanks for calling.</Say></Response>');
 });
 
 //var count = 60;
