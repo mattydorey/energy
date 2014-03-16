@@ -3,29 +3,53 @@ var express = require('express');
 var accountSid = 'AC705e42b0f48c9dc4aa055dd830a816ad';
 var authToken = "dfec68a266acd8126f76127c86e30364";
 var util = require('util');
-var twilio = require('twilio');
-//var client = require('twilio')(accountSid, authToken);
+var client = require('twilio')(accountSid, authToken);
+var redis = require('redis');
+var dbConnection = redis.createClient();
 var app = express();
+var qs = require('querystring');
 
 app.get('/', function(req, res){
 	res.send('..Hellsso World...');
 });
 
-//app.use(express.urlencoded());
+app.use(express.urlencoded());
 
 app.post('/respondToSms', function(req, res) {
+       
+    var body = '';
+    req.setEncoding('utf8');
+    req.on('data', function(data) {
+    	body += data;
+    });
+
+    req.on('end', function() {
+		var now = new Date();
+		var strDateTime = [[AddZero(now.getDate()), AddZero(now.getMonth() + 1), now.getFullYear()].join("/"), [AddZero(now.getHours()), AddZero(now.getMinutes())].join(":"), now.getHours() >= 12 ? "PM" : "AM"].join(" ");   		var data = qs.parse(body);
+		function AddZero(num) { return (num >= 0 && num < 10) ? "0" + num : num + "";};		
+		var jsonString = JSON.stringify(data);
+    	var jsonDataObject = JSON.parse(jsonString);
+    	messageResponse = jsonDataObject.Body;
+    	dbConnection.set(strDateTime, messageResponse, redis.print);
+		console.log(strDateTime);
+		console.log(messageResponse);
+	});
+
     res.type('text/xml');
-    res.send('<Response><Say>Hello there! Thanks for calling.</Say></Response>');
+    var smsResponse = res.send('<Response><Message>Tks</Message></Response>');
 });
 
-//var count = 60;
+dbConnection.on("error", function (err) {
+	console.log("Error " + err);
+});
 
-//var counter = setInterval(timer, 60000);
-/*
+var minutes = 10;
+var counter = setInterval(timer, 60000);
+
 function timer() {
-	count = count -1;
-	console.log("T- " + count + " minutes until fire.");
-	if (count == 0) {
+	minutes = minutes -1;
+	console.log("T- " + minutes + " minutes until fire.");
+	if (minutes == 0) {
 		client.sms.messages.create({
     		body: "Rate your energy between 1 and 5:",
    			 to: "+14153172907",
@@ -33,10 +57,9 @@ function timer() {
 		}, function(err, message) {
     		process.stdout.write(message.sid);
 		});
-		count = 60;
+		minutes = 60;
 	}
 }
-*/
 
 var port = Number(process.env.PORT || 5001);
 app.listen(port, function() {
