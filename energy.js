@@ -62,7 +62,7 @@ function timer() {
 		users.forEach(function(user){
 			client.sms.messages.create({
 	    		body: question,
-	   			to: this.user,
+	   			to: user,
 	   			from: "+14155287545"
 			}, function(err, message) {
 	    		process.stdout.write(message.sid);
