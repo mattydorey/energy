@@ -52,6 +52,7 @@ var counter = setInterval(timer, 1000);
 function timer() {
 	minutes = minutes -1;
 	console.log("T- " + minutes + " minutes until fire.");
+	
 	if (minutes == 0) {
 		
 		var users = ["+14153172907", "+3107709638"];
@@ -65,9 +66,9 @@ function timer() {
 			}, function(err, message) {
 	    		process.stdout.write(message.sid);
 			});*/
-	});
+	};
 	minutes = 60;
-}
+};
 
 
 var port = Number(process.env.PORT || 5001);
