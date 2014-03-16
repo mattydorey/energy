@@ -13,8 +13,6 @@ var redisURL = url.parse(process.env.REDISCLOUD_URL);
 var dbConnection = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
 dbConnection.auth(redisURL.auth.split(":")[1]);
 
-var myhash = "blah";
-
 app.use(express.urlencoded());
 
 app.get('/', function(req, res){
@@ -45,11 +43,14 @@ app.post('/respondToSms', function(req, res) {
     	
     	phoneNumber = jsonDataObject.From;
     	messageResponse = jsonDataObject.Body;
+		console.log(phoneNumber);
+		console.log(strDateTime);
+		console.log(messageResponse);
     	
-    	/*
-    	dbConnection.set("string key", "string val", redis.print); 
-    	dbConnection.hset("hash key", "hashtest 1", phoneNumber, redis.print);
-    	dbConnection.hkeys("hash key", function (err, replies) {
+    	//dbConnection.set("string key", "string val", redis.print); 
+    	//dbConnection.hset("hash key", "hashtest 1", phoneNumber, redis.print);
+    	
+    	/*dbConnection.hkeys("hash key", function (err, replies) {
         	console.log(replies.length + " replies:");
         	replies.forEach(function (reply, i) {
             	console.log("    " + i + ": " + reply);
@@ -59,9 +60,7 @@ app.post('/respondToSms', function(req, res) {
     		"message", messageResponse, 
     		);*/
 		
-		console.log(phoneNumber);
-		console.log(strDateTime);
-		console.log(messageResponse);
+
 	});
 
     res.type('text/xml');
