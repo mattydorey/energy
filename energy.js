@@ -19,8 +19,7 @@ app.get('/', function(req, res){
 
 app.use(express.urlencoded());
 
-app.post('/respondToSms', function(req, res) {
-       
+app.post('/respondToSms', function(req, res) {       
     var body = '';
     req.setEncoding('utf8');
     req.on('data', function(data) {
@@ -33,8 +32,13 @@ app.post('/respondToSms', function(req, res) {
 		function AddZero(num) { return (num >= 0 && num < 10) ? "0" + num : num + "";};		
 		var jsonString = JSON.stringify(data);
     	var jsonDataObject = JSON.parse(jsonString);
+    	
+    	phoneNumber = jsonDataObject.From;
     	messageResponse = jsonDataObject.Body;
+    	
+
     	dbConnection.set(strDateTime, messageResponse, redis.print);
+		console.log(phoneNumber);
 		console.log(strDateTime);
 		console.log(messageResponse);
 	});
