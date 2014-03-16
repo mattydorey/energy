@@ -43,7 +43,7 @@ app.post('/respondToSms', function(req, res) {
     	phoneNumber = jsonDataObject.From;
     	messageResponse = jsonDataObject.Body;
     	
-    	dbConnection.HMSET(key2, {
+    	dbConnection.HMSET("hash", {
     		"user": phoneNumber, 
     		"datetime": strDateTime, 
     		"message": messageResponse});
