@@ -16,15 +16,16 @@ app.configure(function () {
     app.use(express.urlencoded());
 });
 
-//Twilio request authentication with custom URL
-
-var fullValidation = twilio.webhook(authToken, {
-    url:'https://damp-beach-4762.herokuapp.com/respondToSms'
+// This is a more general solution that might work for all your routes...
+var validationForHost = twilio.webhook(authToken, {
+    host:'https://damp-beach-4762.herokuapp.com/respondToSms',
+    protocol:'https'
 });
 
-app.post('/respondToSms', fullValidation, function(req, res) {
+// Where a Twilio number's config is set up to POST to https://silent-iguana-129.herokuapp.com/foobar/voice
+app.post('/respondToSms', validationForHost, function(request, response) {
     var twiml = new twilio.TwimlResponse();
-    twiml.message('holy biscuits');
+    twiml.say('holy biscuits');
     response.send(twiml);
 });
 
