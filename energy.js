@@ -15,6 +15,13 @@ dbConnection.auth(redisURL.auth.split(":")[1]);
 
 app.get('/', function(req, res){
 	res.send('..Hellsso World...');
+	
+	client.hkeys("hash key", function(err, replies) {
+		res.send(replies.length + " replies:");
+		replies.forEach(function (reply, i) {
+			res.send("   " + i + ": " + reply);
+		});
+	});
 });
 
 app.use(express.urlencoded());
@@ -36,7 +43,7 @@ app.post('/respondToSms', function(req, res) {
     	phoneNumber = jsonDataObject.From;
     	messageResponse = jsonDataObject.Body;
     	
-    	dbConnection.set(strDateTime, messageResponse, redis.print);
+    	dbConnection.set("hash key", phoneNumber, strDateTime, messageResponse, redis.print);
 		console.log(phoneNumber);
 		console.log(strDateTime);
 		console.log(messageResponse);
