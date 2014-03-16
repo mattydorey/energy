@@ -15,17 +15,19 @@ app.configure(function () {
     app.use(express.urlencoded());
 });
 
-// This is a more general solution that might work for all your routes...
-var validationForHost = twilio.webhook(authToken, {
-    host:'http://damp-beach-4762.herokuapp.com',
-    protocol:'http'
-});
+app.post('/respondToSms', function(req, res) {
+    var options = { url: 'http://damp-beach-4762.herokuapp.com/respondToSms' };
+    if (twilio.validateExpressRequest(req, authToken, options)) {
+        var resp = new twilio.TwimlResponse();
+        resp.say('express sez - hello twilio!');
 
-// Where a Twilio number's config is set up to POST to https://silent-iguana-129.herokuapp.com/foobar/voice
-app.post('/respondToSms', validationForHost, function(request, response) {
-    var twiml = new twilio.TwimlResponse();
-    twiml.say('holy biscuits');
-    response.send(twiml);
+        res.type('text/xml');
+        res.send(resp.toString());
+    }
+    else {
+        console.log("faill!");
+        res.send('you are not twilio.  Buzz off.');
+    }
 });
 
 //var count = 60;
