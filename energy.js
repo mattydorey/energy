@@ -18,8 +18,8 @@ app.configure(function () {
 
 // This is a more general solution that might work for all your routes...
 var validationForHost = twilio.webhook(authToken, {
-    host:'https://damp-beach-4762.herokuapp.com/respondToSms',
-    protocol:'https'
+    host:'http://damp-beach-4762.herokuapp.com/respondToSms',
+    protocol:'http'
 });
 
 // Where a Twilio number's config is set up to POST to https://silent-iguana-129.herokuapp.com/foobar/voice
