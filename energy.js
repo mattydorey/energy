@@ -57,9 +57,9 @@ function timer() {
 		
 		var users = ["+14153172907", "+14158893323", "+13107709638"];
 		var question = "Rate your energy between 1 and 5:";
-		console.log(users[0]);
 		
 		users.forEach(function(user){
+			console.log(users[0]);
 			client.sms.messages.create({
 	    		body: question,
 	   			to: user,
