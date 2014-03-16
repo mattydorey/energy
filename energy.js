@@ -19,14 +19,13 @@ app.get('/', function(req, res){
 	res.send('..Hellsso World...');
 	
 	dbConnection.hgetall("hash", function(err, replies) {
-		res.send(replies.length + " replies:");
+		res.send('get complete');
+		//res.send(replies.length + " replies:");
 		replies.forEach(function (reply, i) {
 			res.send("   " + i + ": " + reply);
 		});
 	});
 });
-
-
 
 app.post('/respondToSms', function(req, res) {       
     var body = '';
