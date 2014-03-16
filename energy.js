@@ -13,6 +13,8 @@ var redisURL = url.parse(process.env.REDISCLOUD_URL);
 var dbConnection = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
 dbConnection.auth(redisURL.auth.split(":")[1]);
 
+app.use(express.urlencoded());
+
 app.get('/', function(req, res){
 	res.send('..Hellsso World...');
 	
@@ -24,7 +26,7 @@ app.get('/', function(req, res){
 	});
 });
 
-app.use(express.urlencoded());
+
 
 app.post('/respondToSms', function(req, res) {       
     var body = '';
@@ -66,11 +68,11 @@ function timer() {
 	
 	if (minutes == 0) {
 		
-		var users = ["+14153172907", "+14158893323", "+13107709638"];
+		var users = ["+14153172907", "+14158893323"]; //"+13107709638"
 		var question = "Rate your energy between 1 and 5:";
 		
 		users.forEach(function(user){
-			console.log(users[0]);
+			console.log(user);
 			client.sms.messages.create({
 	    		body: question,
 	   			to: user,
