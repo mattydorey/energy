@@ -9,7 +9,7 @@ var qs = require('querystring');
 var redis = require('redis');
 var url = require('url');
 
-var redisURL = url.parse(process.env.REDISCLOUD_URL);
+var redisURL = url.parse(process.env.REDISCLOUD_URL || 6379);
 var dbConnection = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
 dbConnection.auth(redisURL.auth.split(":")[1]);
 
@@ -18,7 +18,7 @@ app.use(express.urlencoded());
 app.get('/', function(req, res){
 	res.send('..Hellsso World...');
 	
-	dbConnection.hgetall("hash", function(err, replies) {
+	dbConnection.hgetall("myhash", function(err, replies) {
 		res.send('get complete');
 		//res.send(replies.length + " replies:");
 		replies.forEach(function (reply, i) {
@@ -44,7 +44,7 @@ app.post('/respondToSms', function(req, res) {
     	phoneNumber = jsonDataObject.From;
     	messageResponse = jsonDataObject.Body;
     	
-    	dbConnection.HMSET("hash", {
+    	dbConnection.HSET("myhash", {
     		"user": phoneNumber, 
     		"datetime": strDateTime, 
     		"message": messageResponse});
