@@ -16,12 +16,21 @@ app.configure(function () {
 });
 
 //Twilio request authentication with custom URL
-app.post('/respondToSms', twilio.webhook(authToken), function(request, response) {
-    var twiml = new twilio.TwimlResponse();
-    twiml.message('This HTTP request came from Twilio!');
-    response.send(twiml);
-});
 
+app.post('/respondToSms', function(req, res) {
+    var options = { url: 'http://damp-beach-4762.herokuapp.com/respondToSms' };
+    if (twilio.validateExpressRequest(req, authToken, options)) {
+        var resp = new twilio.TwimlResponse();
+        resp.say('express sez - hello twilio!');
+
+        res.type('text/xml');
+        res.send(resp.toString());
+    }
+    else {
+        console.log("faill!");
+        res.send('you are not twilio.  Buzz off.');
+    }
+});
 
 var count = 60;
 
