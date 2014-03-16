@@ -5,7 +5,7 @@ var authToken = "dfec68a266acd8126f76127c86e30364";
 var util = require('util');
 process.env.TWILIO_ACCOUNT_SID = accountSid;
 var twilio = require('twilio');
-var client = require('twilio')(accountSid, authToken);
+//var client = require('twilio')(accountSid, authToken);
 var app = express();
 
 app.get('/', function(req, res){
@@ -38,7 +38,7 @@ app.post('/respondToSms', function(req, res) {
 var count = 60;
 
 var counter = setInterval(timer, 60000);
-
+/*
 function timer() {
 	count = count -1;
 	console.log("T- " + count + " minutes until fire.");
@@ -53,6 +53,7 @@ function timer() {
 		count = 60;
 	}
 }
+*/
 
 var port = Number(process.env.PORT || 5001);
 app.listen(port, function() {
