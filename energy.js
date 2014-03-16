@@ -48,7 +48,7 @@ app.post('/respondToSms', function(req, res) {
 });
 
 var minutes = 60;
-var counter = setInterval(timer, 60000);
+var counter = setInterval(timer, 1000);
 
 function timer() {
 	minutes = minutes -1;
