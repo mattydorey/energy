@@ -65,10 +65,11 @@ function timer() {
 	   			to: users,
 	   			from: "+14155287545"
 			}, function(err, message) {
-	    		process.stdout.write(message.sid);
+	    		process.stdout.write(message.sid);	
+			});
 		});
-	};
-};
+	}
+}
 
 minutes = 10;
 
