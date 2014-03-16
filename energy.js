@@ -55,7 +55,7 @@ function timer() {
 	
 	if (minutes == 0) {
 		
-		var users = ["+14153172907", "+3107709638"];
+		var users = ["+14153172907", "+14158893323", "+13107709638"];
 		var question = "Rate your energy between 1 and 5:";
 		console.log(users[0]);
 		
