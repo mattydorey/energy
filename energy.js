@@ -54,7 +54,11 @@ function timer() {
 	minutes = minutes -1;
 	console.log("T- " + minutes + " minutes until fire.");
 	if (minutes == 0) {
-		var users = {"+14153172907", "+3107709638"};
+		
+		var users = new Array();
+		users[0] = "+14153172907";
+		users[1] = "+3107709638";
+
 		for(var i=0; i<users.length; i++) {
 			client.sms.messages.create({
 	    		body: "Rate your energy between 1 and 5:",
