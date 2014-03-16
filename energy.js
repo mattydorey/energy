@@ -16,7 +16,7 @@ app.configure(function () {
 });
 
 //Twilio request authentication with custom URL
-app.post('/respondToSms', twilio.webhook(), function(request, response) {
+app.post('/respondToSms', twilio.webhook(authToken), function(request, response) {
     var twiml = new twilio.TwimlResponse();
     twiml.message('This HTTP request came from Twilio!');
     response.send(twiml);
