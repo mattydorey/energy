@@ -15,7 +15,33 @@ app.configure(function () {
     app.use(express.urlencoded());
 });
 
-    if (req.method == 'POST') {
+    
+
+//var count = 60;
+
+//var counter = setInterval(timer, 60000);
+/*
+function timer() {
+	count = count -1;
+	console.log("T- " + count + " minutes until fire.");
+	if (count == 0) {
+		client.sms.messages.create({
+    		body: "Rate your energy between 1 and 5:",
+   			 to: "+14153172907",
+   			 from: "+14155287545"
+		}, function(err, message) {
+    		process.stdout.write(message.sid);
+		});
+		count = 60;
+	}
+}
+*/
+
+var port = Number(process.env.PORT || 5001);
+
+app.listen(port, function() {
+	
+	if (req.method == 'POST') {
         var body = '';
 
         req.on('data', function (data) {
@@ -50,27 +76,5 @@ app.configure(function () {
         res.end('send a POST');
     }
 
-//var count = 60;
-
-//var counter = setInterval(timer, 60000);
-/*
-function timer() {
-	count = count -1;
-	console.log("T- " + count + " minutes until fire.");
-	if (count == 0) {
-		client.sms.messages.create({
-    		body: "Rate your energy between 1 and 5:",
-   			 to: "+14153172907",
-   			 from: "+14155287545"
-		}, function(err, message) {
-    		process.stdout.write(message.sid);
-		});
-		count = 60;
-	}
-}
-*/
-
-var port = Number(process.env.PORT || 5001);
-app.listen(port, function() {
 	console.log("Listening on " + port);
 });
