@@ -58,18 +58,19 @@ function timer() {
 		var users = ["+14153172907", "+3107709638"];
 		var message = "Rate your energy between 1 and 5:";
 		console.log(users[0]);
-		/*Array.users.each(function(users){
+		
+		Array.users.each(function(users){
 			client.sms.messages.create({
 	    		body: message,
 	   			to: users,
 	   			from: "+14155287545"
 			}, function(err, message) {
 	    		process.stdout.write(message.sid);
-			});*/
+		});
 	};
 };
 
-minutes = 60;
+minutes = 10;
 
 var port = Number(process.env.PORT || 5001);
 app.listen(port, function() {
