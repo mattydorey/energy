@@ -18,15 +18,19 @@ app.configure(function () {
 //Create a route to resp
 app.post('/respondToSms', function(req,res) {
 	//Validate that this request came from TW
-	//console.log(util.inspect(req));
 	if(twilio.validateExpressRequest(req, authToken)) {
-		var twiml = new twilio.TwimlResponse();
-		console.log(util.inspect(req));
-		console.log('go');
-		twiml.Sms('Hi, thanks for sending!');
+		var resp = new twilio.TwimlResponse();
+        resp.say('express sez - hello twilio!');
 
-		res.type('text/xml');
-		res.send(twiml.toString());
+        res.type('text/xml');
+        res.send(resp.toString());
+
+		//var twiml = new twilio.TwimlResponse();
+		//console.log(util.inspect(req));
+		//console.log('go');
+		//twiml.Sms('Hi, thanks for sending!');
+		//res.type('text/xml');
+		//res.send(twiml.toString());
 		//console.log(util.inspect(twiml.body));
 	}
 	else {
