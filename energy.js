@@ -15,19 +15,40 @@ app.configure(function () {
     app.use(express.urlencoded());
 });
 
-// This is a more general solution that might work for all your routes...
-var validationForHost = twilio.webhook(authToken, {
-    host:'https://damp-beach-4762.herokuapp.com/respondToSms',
-    protocol:'https'
-    validate: false;
-});
+    if (req.method == 'POST') {
+        var body = '';
 
-// Where a Twilio number's config is set up to POST to https://silent-iguana-129.herokuapp.com/foobar/voice
-app.post('/respondToSms', validationForHost, function(request, response) {
-    var twiml = new twilio.TwimlResponse();
-    twiml.say('holy biscuits');
-    response.send(twiml);
-});
+        req.on('data', function (data) {
+            body += data;
+        });
+
+        req.on('end', function () {
+
+            var POST = qs.parse(body);
+
+            //validate incoming request is from twilio using your auth token and the header from Twilio
+            var token = authToken,
+                header = req.headers['x-twilio-signature'];
+
+            //validateRequest returns true if the request originated from Twilio
+            if (twilio.validateRequest(token, header, 'http://damp-beach-4762.herokuapp.com/respondToSms', POST)) {
+                //generate a TwiML response
+                var resp = new twilio.TwimlResponse();
+                resp.say('hello, twilio!');
+
+                res.writeHead(200, { 'Content-Type':'text/xml' });
+                res.end(resp.toString());
+            }
+            else {
+                res.writeHead(403, { 'Content-Type':'text/plain' });
+                res.end('you are not twilio - take a hike.');
+            }
+        });
+    }
+    else {
+        res.writeHead(404, { 'Content-Type':'text/plain' });
+        res.end('send a POST');
+    }
 
 //var count = 60;
 
