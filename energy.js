@@ -16,7 +16,7 @@ dbConnection.auth(redisURL.auth.split(":")[1]);
 app.get('/', function(req, res){
 	res.send('..Hellsso World...');
 	
-	dbConnection.hkeys("hash key", function(err, replies) {
+	dbConnection.hgetall("user", function(err, replies) {
 		res.send(replies.length + " replies:");
 		replies.forEach(function (reply, i) {
 			res.send("   " + i + ": " + reply);
@@ -43,7 +43,7 @@ app.post('/respondToSms', function(req, res) {
     	phoneNumber = jsonDataObject.From;
     	messageResponse = jsonDataObject.Body;
     	
-    	dbConnection.hset("hash key", phoneNumber, strDateTime, messageResponse, redis.print);
+    	dbConnection.hmset("user", phoneNumber, "datetime", strDateTime, "message", messageResponse, redis.print);
 		console.log(phoneNumber);
 		console.log(strDateTime);
 		console.log(messageResponse);
@@ -77,6 +77,7 @@ function timer() {
 			});
 		});
 	}
+	
 }
 
 minutes = 10;
