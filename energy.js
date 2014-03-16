@@ -59,15 +59,16 @@ function timer() {
 		var question = "Rate your energy between 1 and 5:";
 		console.log(users[0]);
 		
-		//users.forEach(function(user){
+		users.forEach(function(user){
 			client.sms.messages.create({
 	    		body: question,
 	   			to: "+14153172907",
 	   			from: "+14155287545"
 			}, function(err, message) {
-	    		process.stdout.write(message.sid);	
+	    		process.stdout.write(message.sid);
+	    		console.log(err);
 			});
-		//});
+		});
 	}
 }
 
