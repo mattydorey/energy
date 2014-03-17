@@ -36,7 +36,7 @@ app.post('/respondToSms', function(req, res) {
     	phoneNumber = jsonDataObject.From;
     	messageResponse = jsonDataObject.Body;
     	
-    	dbConnection.hset("hash", "date", strDateTime);
+    	dbConnection.set(strDateTime, messageResponse, redis.print);
 		
 		console.log(phoneNumber);
 		console.log(strDateTime);
@@ -47,8 +47,8 @@ app.post('/respondToSms', function(req, res) {
     var smsResponse = res.send('<Response><Message>Tks</Message></Response>');
 });
 
-var minutes = 60;
-var counter = setInterval(timer, 60000);
+var minutes = 10;
+var counter = setInterval(timer, 1000);
 
 function timer() {
 	minutes = minutes -1;
@@ -70,11 +70,9 @@ function timer() {
 	    		console.log(err);
 			});
 		});
-		minutes = 60;
+		minutes = 10;
 	}
 }
-
-
 
 var port = Number(process.env.PORT || 5001);
 app.listen(port, function() {
