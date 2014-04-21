@@ -10,7 +10,9 @@
     "twilio": "1.5.0",
     "redis-url": "^0.2.0",
     "url": "^0.7.9",
-    "redis": "^0.10.1"
+    "redis": "^0.10.1",
+    "nodemailer": "^0.6.1",
+    "string": "^1.8.0"
   },
   "devDependencies": {},
   "scripts": {

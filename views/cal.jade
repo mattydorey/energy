@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  h1= title
+  h2= "user is " + user
+  p= "Email is " + email
+  each event in events
+    p= event

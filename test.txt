@@ -1,0 +1,6 @@
+do
+buy
+visit
+cat
+dog
+monkey

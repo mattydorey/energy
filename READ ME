@@ -1,0 +1,19 @@
+Add User
+------------
+hset user:x user_id
+hset user:x phone
+hset user:x name
+
+Add Phrase
+-------------
+hset phrase:x phrase_id
+hset phrase:x body 'something'
+hset phrase:x recipe_id
+sadd 'Phase body' recipe:x
+
+Add Recipe
+-------------
+hset recipe:x recipe_id - auto inc
+hset recipe:x name "Something"
+hset recipe:x module name
+hset recipe:x params '{"Url": "http://www.timeanddate.com/worldclock/city.html?n=286", "Div": "#ct"}'
