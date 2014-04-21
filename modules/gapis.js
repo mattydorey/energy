@@ -1,72 +1,40 @@
 var googleapis = require('googleapis');
 
-function Gapi () {
-
+function Gapi (access_token) {
+	this.googleapis = googleapis;
 	var calendar_auth_url = 'ss';
     var OAuth2 = googleapis.auth.OAuth2;
     var my_events;
     var client;
+    this.access_token = access_token;
+    var refresh_token;
 
 	var oauth2Client =
 	    new OAuth2('570658000106-eqpmv5dri7e6lk2lpsjpa3c9eclb4nj0.apps.googleusercontent.com', 
 	    	'gl_xoLgVuXg8Wezsl_uAh2UA', 
 	    	'http://localhost:5002/oauth2callback');
 
+	oauth2Client.credentials = {
+		access_token: access_token,
+ 	 	refresh_token: "1/LIGgqj_juoSU2n_k4niGqQUnp8WrJsmF3heapijfDdk"
+	};
+
+	this.oauth2Client = oauth2Client;
+
 	this.url = oauth2Client.generateAuthUrl({
 		access_type: 'offline',
+		approval_prompt: 'force',
 		scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/plus.me'
 	});
 
 	this.newToken = function (code, cb) {
 		oauth2Client.getToken(code, function (error, result) {
-			console.log(result);
 			cb(error, result);
 		});
 	}
 
-	oauth2Client.credentials = {
-		access_token: 'ya29.1.AADtN_XF918YAmhBISxpZ3txeTCMrvC-m-L0WDYEuflibE9htG3LFXzxTWF8EMTGmA',
- 	 	refresh_token: '1/Cn09VH-iGe5L7vgjbuDYJFI3qCWT2GURgMCGu-jFsaA'
-	};
-
-	this.getPlus = function () {
-		googleapis
-			.discover('calendar', 'v3')
-			.discover('oauth2', 'v2')
-			.execute(
-				function (error, result) {
-					if (error) console.log(error);
-					else {
-						client = result;
-						client.calendar.events.list({
-					  		calendarId:'1@m3m3n70.com', 
-					  		singleEvents: true,
-					  		orderBy: 'startTime',
-					  		showDeleted: false,
-					  		timeMin:'2014-04-13T02:21:50-07:00',
-					  		timeMax: '2014-05-15T02:21:50-07:00'
-					  		})
-						.withAuthClient(oauth2Client)
-						.execute 
-					  		(function (error, result) {
-					  			if (error) console.log(error);
-					  			else result;
-						  //   	for (var i = result.items.length - 1; i >= 0; i--) {
-						  // 			my_events.push(result.items[i].summary);
-						  //   	};
-						  //   	var eventsString = JSON.stringify(my_events);
-								// var eventsJSON = JSON.parse(eventsString);
-								// console.log(my_events);
-								console.log(result);
-							});
-					}
-		 		}
-		 );
-	}
-
 	function callback (clients) {
 		console.log('client object is: ' + clients);
-		//exports.url = calendar_auth_url;
 		console.log('url is: ' + calendar_auth_url);
 	};
 
