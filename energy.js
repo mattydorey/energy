@@ -27,8 +27,7 @@ dbConnection.auth(redisURL.auth.split(":")[1]);
 */
 
 var gapi = new Gapi();
-var str = JSON.stringify(gapi);
-console.log('gapi : ' + str);
+gapi.getPlus();
 
 var my_calendars = [],
 	my_events = [],
@@ -151,7 +150,7 @@ function timer() {
 }
 
 //Server setup
-var port = Number(process.env.PORT || 5003);
+var port = Number(process.env.PORT || 5002);
 app.listen(port, function() {
 	console.log("Listening on " + port);
 });
