@@ -1,5 +1,10 @@
 var redis = require('redis');
-var dbConnection = redis.createClient();
+
+//var dbConnection = redis.createClient();
+var redisURL = url.parse(process.env.REDISCLOUD_URL);
+var dbConnection = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
+dbConnection.auth(redisURL.auth.split(":")[1]);
+
 var S = require('string');
 var Module = require('../src/module');
 

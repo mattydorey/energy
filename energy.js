@@ -9,9 +9,8 @@ var qs = require('querystring');
 var redis = require('redis');
 var url = require('url');
 var $ = require ('jquery');
-var dbConnection = redis.createClient();
+
 var fs = require('fs');
-//var Cal = require('./modules/calendar');
 var S = require('string');
 var wit = require('./src/wit');
 var Message = require('./src/message');
@@ -20,15 +19,17 @@ var Gapi = require('./modules/gapis');
 
 //Setup DB Support 
 
-/* Redis - Deploy to Heroku 
+//var dbConnection = redis.createClient();
+ Redis - Deploy to Heroku 
 var redisURL = url.parse(process.env.REDISCLOUD_URL);
 var dbConnection = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
 dbConnection.auth(redisURL.auth.split(":")[1]);
-*/
 
 
 var Data = require('./src/data');
 var db = Data.getInstance({});
+
+
 
 var gapi = new Gapi();
 
@@ -58,6 +59,7 @@ app.get('/oauth2callback', function(req, res) {
 	var code = req.query.code;
 	console.log(code);
 	gapi.newToken(code, function (error, result) {
+		console.log(result);
 		db.storeToken(result, '+14153172907');
 	});
   	var locals = {
