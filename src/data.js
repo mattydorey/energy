@@ -82,7 +82,7 @@ var Data = (function() {
 				var params;
 				var module;
 				var recipe;
-				var token;
+				var access_token;
 				var key;
 				var that = this;
 				this.getKey(intent, function (error, result) {
@@ -94,9 +94,9 @@ var Data = (function() {
 							that.getRecord(key, 'module', function (error, result) {
 								module = result;
 								that.getMember(phoneNumber, function (error, result) {
-									that.getRecord(result, 'token', function (error, result) {
-										token = result;
-										that.getModule(module, params, entities, token, function (error, result) {
+									that.getRecord(result, 'access_token', function (error, result) {
+										access_token = result;
+										that.getModule(module, params, entities, access_token, function (error, result) {
 											cb(null, result);
 										});										
 									});
@@ -119,6 +119,29 @@ var Data = (function() {
 					});
 				});
 			},
+
+			storeToken: function (token, phoneNumber) { 
+		  		var tokenString = JSON.stringify(token);
+		  		var tokenJSON = JSON.parse(tokenString);
+
+		  		var access_token = tokenJSON.access_token;
+		  		var token_type = tokenJSON.token_type;
+		  		var expires_in = tokenJSON.expires_in;
+		  		var id_token = tokenJSON.id_token;
+		  		var refresh_token = tokenJSON.refresh_token;
+
+				console.log(access_token);
+		  		console.log(refresh_token);
+
+		  		//TODO: clean up key/id and phoneNumber passing
+		  		this.insertRecord('1', 'gapi', 'name', phoneNumber);
+		  		this.insertRecord('1', 'gapi', 'access_token', access_token);
+		  		this.insertRecord('1', 'gapi', 'token_type', token_type);
+		  		this.insertRecord('1', 'gapi', 'expires_in', expires_in);
+		  		this.insertRecord('1', 'gapi', 'id_token', id_token);
+		  		this.insertRecord('1', 'gapi', 'refresh_token', refresh_token);
+		  		this.insertMember('1', 'gapi', 'name', phoneNumber);
+  			},
 
 			getDateTime: function (cb) {
 				var now = new Date();

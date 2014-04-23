@@ -26,8 +26,11 @@ var dbConnection = redis.createClient(redisURL.port, redisURL.hostname, {no_read
 dbConnection.auth(redisURL.auth.split(":")[1]);
 */
 
+
+var Data = require('./src/data');
+var db = Data.getInstance({});
+
 var gapi = new Gapi();
-gapi.getPlus();
 
 var my_calendars = [],
 	my_events = [],
@@ -55,7 +58,7 @@ app.get('/oauth2callback', function(req, res) {
 	var code = req.query.code;
 	console.log(code);
 	gapi.newToken(code, function (error, result) {
-		// cal.storeToken(result);
+		db.storeToken(result, '+14153172907');
 	});
   	var locals = {
         title: 'What are you doing with yours?',
@@ -73,6 +76,10 @@ app.get('/oauth2callback', function(req, res) {
 //   };
 //   res.render('cal.jade', locals);
 // });
+
+
+
+
 
 //Add Users Into DB
 var users = ["+14153172907", "+14158893323"]; 

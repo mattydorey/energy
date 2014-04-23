@@ -5,7 +5,7 @@ var Calendar = require('../modules/calendar');
 
 function Module() {
 	
-	this.selectModule = function(module, params, entities, token, cb) {
+	this.selectModule = function(module, params, entities, access_token, cb) {
 		console.log('Entering module: ' + module);
 		switch(module) {
 			case 'Scraper':
@@ -53,16 +53,10 @@ function Module() {
 				break;
 
 			case 'Calendar':
-				var calendar = new Calendar(token);
-				// calendar.listEvents(token, '1@m3m3n70.com', entities, 'nextWeek', function (error, result) {
-				// 	console.log(result);
-				// });
-				// Calendar.existingToken('+14153172907', function (error, result) { 
-				// 	Calendar.listEvents(token, '1@m3m3n70.com', '', '', function (error, result) {
-				// 		console.log('got results from db and existing token: ' + result);
-				// 		cb(null, result);
-				// 	});
-				// });
+				var calendar = new Calendar(access_token, entities, function (error, result) {
+					console.log(result);
+					cb(error, result);
+				});
 				break;
 
 			default: 
