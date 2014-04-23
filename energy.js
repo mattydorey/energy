@@ -6,11 +6,10 @@ var util = require('util');
 var client = require('twilio')(accountSid, authToken);
 var app = express();
 var qs = require('querystring');
-var redis = require('redis');
-var url = require('url');
 var fs = require('fs');
 var S = require('string');
 var wit = require('./src/wit');
+
 var Message = require('./src/message');
 var next_recipe_id = 0;
 var Gapi = require('./modules/gapis');
@@ -18,7 +17,8 @@ var Gapi = require('./modules/gapis');
 //Setup DB Support 
 
 //var dbConnection = redis.createClient();
-
+var redis = require('redis');
+var url = require('url');
 
 var redisURL = url.parse(process.env.REDISCLOUD_URL);
 var dbConnection = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
