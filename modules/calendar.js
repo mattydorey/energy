@@ -1,7 +1,6 @@
 var Gapi = require('./gapis');
 var datetime = require('./datetime');
 var moment = require('moment');
-var $ = require('jquery');
 
 function Calendar(access_token, entities, cb) {
 	var gapi = new Gapi(access_token);
